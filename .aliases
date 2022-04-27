@@ -1,0 +1,24 @@
+
+
+alias ls='exa -a --color=always --icons --group-directories-first'
+alias ll='exa -al --color=always --icons --group-directories-first'
+alias v='nvim'
+alias vim='nvim'
+alias inny='sudo zypper in'
+alias uppy='sudo zypper dup'
+alias se='zypper se'
+alias cp="cp -ir"
+alias rm="rm -ir"
+alias mkdir='mkdir -pv'
+alias mv='mv -i'
+alias xprop='xprop |grep WM_CLASS'
+alias mail='cat /var/spool/mail/larry'
+alias font='fc-list | dmenu -l 20 -p ": Enter Font Name"'
+alias eb='nvim .bashrc && source .bashrc'
+alias ea='nvim .aliases && source .bashrc'
+alias free='free -mht'
+alias updatedb='sudo updatedb'
+
+neofetch
+
+motivate

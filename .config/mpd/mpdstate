@@ -1,0 +1,41 @@
+sw_volume: 74
+audio_device_state:1:pulse audio
+audio_device_state:1:my_fifo
+state: pause
+current: 0
+time: 20.922000
+random: 0
+repeat: 0
+single: 0
+consume: 1
+crossfade: 0
+mixrampdb: 0.000000
+mixrampdelay: -1.000000
+playlist_begin
+0:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0001
+1:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0002
+2:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0003
+3:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0004
+4:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0005
+5:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0006
+6:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0007
+7:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0008
+8:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0009
+9:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0010
+10:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0011
+11:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0012
+12:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0013
+13:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0014
+14:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0015
+15:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0016
+16:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0017
+17:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0018
+18:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0019
+19:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0020
+20:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0021
+21:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0022
+22:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0023
+23:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0024
+24:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0025
+25:Cream - Discography 1966-2005 [FLAC]/2003 - BBC Sessions/Cream - BBC Sessions.cue/track0026
+playlist_end
