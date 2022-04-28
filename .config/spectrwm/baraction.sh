@@ -5,18 +5,6 @@
 while :; do
 
 ##############################
-#	    UPDATES
-##############################
-
-updates() {
-        UPD="$(cat /home/larry/.local/bin/updates.cache)"
-
-        echo $UPD 
-        
-        sleep 600
-}
-
-##############################
 #	    VOLUME
 ##############################
 
@@ -44,40 +32,15 @@ vol() {
 #	    WEATHER
 ##############################
 
-weather=$(cat ~/.config/weather.txt | sed 25q | grep value | awk '{print $2 $3}' | sed 's/\"//g')
-temp=$(cat ~/.config/weather.txt | grep temp_F | awk '{print $2}' | sed 's/\"//g' | sed 's/,//')
+weather() {
+        $WEA="$(awk '{print $0} '/home/larry/.local/bin/weather.txt)"
 
-nocloud="盛"
-cloud=""
-lotempicon="  "
-midtempicon="  "
-hitempicon="  "
+        echo "$WEA" 
 
-#print weather info
-TEMP() {
-    echo "$temp °"
-}
-
-tempicon() {
-if [ "$temp" -gt 80 ]; then
-	echo $hitempicon
-elif [ "$temp" -ge 50 ] && [ "$temp" -le 79 ]; then
-	echo $midtempicon
-elif [ "$temp" -le 49]; then
-	echo $lotempicon
-fi
-}
-
-weathericon() {
-if [[ "$weather" = "Clear" ]] || [[ "$weather" = "Sunny" ]]; then
-	echo "$nocloud $weather"
-else
-	echo "$cloud $weather"
-fi
 }
 
 ################################
 
-echo -e "  $(weathericon) $(tempicon) $(TEMP) $(volicon) $(vol) "
+echo -e "$(WEA) $(volicon) $(vol) "
     
 done

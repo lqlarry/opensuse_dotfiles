@@ -1,6 +1,5 @@
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
-from libqtile.command import lazy
+from libqtile.config import Click, Drag, DropDown, Group, Key, Match, ScratchPad, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.images import Img
@@ -13,7 +12,7 @@ import subprocess
 from libqtile import hook
 
 mod = "mod4"
-myTerm = "alacritty" 
+myTerm = "kitty" 
 
 keys = [
 
@@ -22,6 +21,14 @@ keys = [
         desc="Launch Terminal"),
 
     Key([mod, "shift"], "Return", 
+        lazy.spawn("rofi -combi-modi window,drun,ssh -show combi 'Run: '"), 
+        desc="Launch Dmenu"),
+
+    Key([mod], "e",
+        lazy.spawn("rofimoji"),
+        desc="launch Rofimoji"),
+
+    Key([mod], "d", 
         lazy.spawn("dmenu_run -p 'Run: '"), 
         desc="Launch Dmenu"),
 
@@ -33,17 +40,17 @@ keys = [
         lazy.spawn("pcmanfm"), 
         desc="Launch PCManfm"),
 
+    Key([mod, "mod1"], "f", 
+        lazy.spawn("firefox"), 
+        desc="Launch Firefox"),
+
     Key([mod, "mod1"], "g", 
         lazy.spawn("google-chrome-stable"), 
-        desc="Launch Google-Chrome"),
+        desc="Launch Google Chrome"),
 
     Key([mod, "mod1"], "t", 
         lazy.spawn("telegram-desktop"), 
         desc="Launch Telegram-Desktop"),
-
-    Key([mod, "shift"], "b", 
-        lazy.spawn("/usr/bin/bm.sh"), 
-        desc="Launch Rofi Bookmarks"),
 
     Key([mod, "shift"], "c",
         lazy.window.kill(), 
@@ -53,7 +60,7 @@ keys = [
         lazy.shutdown(), 
         desc="Shutdown Qtile"),
 
-    Key([mod, "control"], "r", 
+    Key([mod, "shift"], "r", 
         lazy.reload_config(), 
         desc="Reload the config"),
 
@@ -66,7 +73,7 @@ keys = [
         desc="Toggle between split and unsplit sides of stack"),
 
     Key([], "XF86AudioLowerVolume", 
-        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -10%")),
 
     Key([], "XF86AudioRaiseVolume", 
         lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
@@ -128,13 +135,11 @@ keys = [
 
     Key([mod], "n", 
         lazy.layout.normalize(),
-        desc="Reset all window sizes"),
-
-]
+        desc="Reset all window sizes")]
 
 groups = [Group('1', label="", layout='monadtall'),
           Group('2', label="", layout='monadtall', matches=[Match(wm_class='pcmanfm')]),
-          Group('3', label="", layout='max', matches=[Match(wm_class='google-chrome')]),
+          Group('3', label="", layout='max', matches=[Match(wm_class='google-chrome-stable')]),
           Group('4', label="", layout='monadtall'),
           Group('5', label="", layout='monadtall'),
           Group('6', label="", layout='monadtall'),
@@ -142,8 +147,11 @@ groups = [Group('1', label="", layout='monadtall'),
           Group('8', label="", layout='monadtall'),
           Group('9', label="", layout='monadtall', matches=[Match(wm_class='telegram-desktop')])]
 
-group_names = []
+group_names =  []
+        
 keynames = [i for i in "123456789"]
+# group_labels = ["","","","","","","","",""]
+group_labels = ["1","2","3","4","5","6","7","8","9"]
 for g in range(len(group_names)):
     groups.append(
         Group(
@@ -159,10 +167,27 @@ for keyname, group in zip(keynames, groups):
         Key([mod, "shift"], keyname, lazy.window.togroup(group.name)),
     ])
 
+# Append scratchpad with dropdowns to groups
+groups.append(ScratchPad('scratchpad', [
+    DropDown('term', 'kitty', width=0.8, height=0.7, x=0.1, y=0.1, opacity=.85),
+    DropDown('music', 'kitty -e ncmpcpp', width=0.8, height=0.7, x=0.1, y=0.1, opacity=1),
+    DropDown('ranger', 'kitty -e ranger', width=0.8, height=0.7, x=0.1, y=0.1, opacity=1),
+    DropDown('bitwarden', 'bitwarden-desktop', width=0.7, height=0.8, x=0.15, y=0.1, opacity=1),
+]))
+# extend keys list with keybinding for scratchpad
+keys.extend([
+    Key(["control"], "1", lazy.group['scratchpad'].dropdown_toggle('term')),
+    Key(["control"], "2", lazy.group['scratchpad'].dropdown_toggle('music')),
+    Key(["control"], "3", lazy.group['scratchpad'].dropdown_toggle('ranger')),
+    Key(["control"], "4", lazy.group['scratchpad'].dropdown_toggle('bitwarden')),
+    ])
+
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     layout.Max(),
-    layout.MonadTall(),
+    layout.MonadTall(
+        margin = 20 
+        ),
     layout.Tile(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -178,86 +203,104 @@ layouts = [
 ###### Widgets for bar ######
 
 widget_defaults = dict(
-        font="Hurmit Nerd Font",
-    fontsize=12,
-    padding=5,
+        font="Hurmit Nerd Font Bold",
+    fontsize=13,
+    padding=3,
+    background="#2e3440",
+    foreground="#2e3440",
 )
 extension_defaults = widget_defaults.copy()
 
-## NORD COLOR SCHEME
-color1 = '5E81AC'
-color2 = '8FBCBB'
-color3 = 'B48EAD'
-color4 = 'EBCB8B'
-color5 = 'D08770'
-color6 = 'A3BE8C'
-color7 = 'BF616A'
-color8 = '88C0D0'
-color9 = '3B4252'
+## DRACULA COLOR SCHEME
+color1 = '#6272a4'
+color2 = '#8be9fd'
+color3 = '#50fa7b'
+color4 = '#ffb86c'
+color5 = '#ff79c6'
+color6 = '#bd93f9'
+color7 = '#ff5555'
+color8 = '#f1fa8c'
+color9 = '#44475a'
+color10 = '#f8f8f2'
+
+# ## NORD COLOR SCHEME
+# color1 = '#5E81AC'
+# color2 = '#8FBCBB'
+# color3 = '#B48EAD'
+# color4 = '#EBCB8B'
+# color5 = '#D08770'
+# color6 = '#A3BE8C'
+# color7 = '#BF616A'
+# color8 = '#88C0D0'
+# color9 = '#3B4252'
 
 ##BASIC COLORS
-RED = 'FF0000'
-DKRED = '86080E'
-GREEN = '00FF00'
-DKGREEN = '338333'
+RED = '#FF0000'
+DKRED = '#86080E'
+GREEN = '#00FF00'
+DKGREEN = '#338333'
 
 screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.CurrentLayoutIcon(
+                    scale = .75,
+                    ),
+                widget.Spacer(length=15),
+                widget.Volume(
+                    fmt = ': {}',
+                    #background = color5,
+                    foreground = color5,
+                    emoji = False,
+                    ),
+                widget.Spacer( length=15),
+                widget.Mpd2(
+                    max_chars = 32,
+                    foreground = color4,
+                    status_format = '  {play_status} {artist}  {title}',
+                    update_interval = 1,
+                    ),
+                widget.Spacer(),
                 widget.GroupBox(
                     font = "Hurmit Nerd Font",
-                    fontsize = 20,
-                    active = '8c9eb9',
-                    hide_unused = False,
-                    background = color1, 
+                    fontsize = 18,
+                    active = color1,
+                    hide_unused = True,
+                    #background = color1, 
                     highlight_method = 'line',
                     highlight_color = color1,
-                    block_highlight_text_color = 'FFFFFF',
+                    block_highlight_text_color = color10,
                     ),
                 widget.Prompt(),
-                widget.WindowName(
-                    fontsize = 14,
-                    max_chars = 50,
-                    background = color2,
-                    foreground = color9,
-                    ),
+                widget.Spacer(),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
-                ),
+                    ),
                 widget.OpenWeather(
                     fontsize = 14,
-                    format = '  {main_temp} °{units_temperature}',
+                    format = ' {main_temp} °{units_temperature}',
                     zip = 92253,
                     app_key = '6f535b0f14f17a54f2ecb8416c2ba28c',
                     city_id = 5364079,
                     metric = False,
                     update_interval = 600,
-                    background = color4,
-                    foreground = color9,
+                    #background = color8,
+                    foreground = color8,
                     ),
-                widget.Volume(
-                    fmt = 'Vol: {}',
-                    background = color5,
-                    foreground = color9,
-                    emoji = False,
-                    ),
+                widget.Spacer( length=15),
                 widget.Clock(
                     fontsize = 13,
                     format=" %l:%M %p (%a, %b %d)",
-                    background = color6,
-                    foreground = color9,
+                    #background = color6,
+                    foreground = color6,
                     ),
-                widget.CurrentLayoutIcon(
-                    background = color7,
-                    foreground = color9,
-                    scale = .75,
-                    ),
+                widget.Spacer( length=5),
                 widget.Systray(
-                    background = color8,
+                    forground = color8,
                     ),
             ],
             24,
